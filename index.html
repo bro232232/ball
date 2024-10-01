@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D-like Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        #game {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="game">
+        <h1>Welcome to the Adventure!</h1>
+        <div id="character-creation">
+            <h2>Create Your Character</h2>
+            <label for="name">Name:</label>
+            <input type="text" id="name"><br><br>
+            <label for="class">Class:</label>
+            <select id="class">
+                <option value="warrior">Warrior</option>
+                <option value="mage">Mage</option>
+                <option value="rogue">Rogue</option>
+            </select><br><br>
+            <button onclick="startGame()">Start Game</button>
+        </div>
+        <div id="gameplay" class="hidden">
+            <h2 id="character-name"></h2>
+            <p id="character-class"></p>
+            <p id="story"></p>
+            <div id="options"></div>
+        </div>
+    </div>
+    <script>
+        let character = {};
+
+        function startGame() {
+            const name = document.getElementById('name').value;
+            const characterClass = document.getElementById('class').value;
+            if (name && characterClass) {
+                character.name = name;
+                character.class = characterClass;
+                document.getElementById('character-creation').classList.add('hidden');
+                document.getElementById('gameplay').classList.remove('hidden');
+                document.getElementById('character-name').innerText = name;
+                document.getElementById('character-class').innerText = `Class: ${characterClass}`;
+                startStory();
+            } else {
+                alert('Please enter a name and select a class.');
+            }
+        }
+
+        function startStory() {
+            if (character.class === 'warrior') {
+                warriorStory();
+            } else if (character.class === 'mage') {
+                mageStory();
+            } else if (character.class === 'rogue') {
+                rogueStory();
+            }
+        }
+
+        function warriorStory() {
+            document.getElementById('story').innerText = 'As a brave warrior, you stand at the entrance of a dark forest. Do you:';
+            document.getElementById('options').innerHTML = `
+                <button onclick="exploreForest()">Explore the Forest</button>
+                <button onclick="visitVillage()">Visit the Nearby Village</button>
+            `;
+        }
+
+        function mageStory() {
+            document.getElementById('story').innerText = 'As a wise mage, you find yourself in an ancient library. Do you:';
+            document.getElementById('options').innerHTML = `
+                <button onclick="studySpells()">Study Ancient Spells</button>
+                <button onclick="exploreLibrary()">Explore the Library</button>
+            `;
+        }
+
+        function rogueStory() {
+            document.getElementById('story').innerText = 'As a cunning rogue, you are in a bustling marketplace. Do you:';
+            document.getElementById('options').innerHTML = `
+                <button onclick="pickpocket()">Pickpocket a Merchant</button>
+                <button onclick="findTavern()">Find a Tavern</button>
+            `;
+        }
+
+        function exploreForest() {
+            document.getElementById('story').innerText = 'You venture into the forest and encounter a wild beast!';
+            document.getElementById('options').innerHTML = `
+                <button onclick="fightBeast()">Fight the Beast</button>
+                <button onclick="runAway()">Run Away</button>
+            `;
+        }
+
+        function visitVillage() {
+            document.getElementById('story').innerText = 'You visit the village and meet a mysterious stranger who offers you a quest.';
+            document.getElementById('options').innerHTML = `
+                <button onclick="acceptQuest()">Accept the Quest</button>
+                <button onclick="declineQuest()">Decline the Quest</button>
+            `;
+        }
+
+        function studySpells() {
+            document.getElementById('story').innerText = 'You study ancient spells and gain powerful new abilities.';
+            document.getElementById('options').innerHTML = `
+                <button onclick="testSpells()">Test Your Spells</button>
+                <button onclick="rest()">Rest and Recover</button>
+            `;
+        }
+
+        function exploreLibrary() {
+            document.getElementById('story').innerText = 'You explore the library and discover a hidden passage.';
+            document.getElementById('options').innerHTML = `
+                <button onclick="enterPassage()">Enter the Passage</button>
+                <button onclick="ignorePassage()">Ignore the Passage</button>
+            `;
+        }
+
+        function pickpocket() {
+            document.getElementById('story').innerText = 'You successfully pickpocket a merchant and gain some gold.';
+            document.getElementById('options').innerHTML = `
+                <button onclick="spendGold()">Spend the Gold</button>
+                <button onclick="saveGold()">Save the Gold</button>
+            `;
+        }
+
+        function findTavern() {
+            document.getElementById('story').innerText = 'You find a tavern and overhear rumors of a hidden treasure.';
+            document.getElementById('options').innerHTML = `
+                <button onclick="searchTreasure()">Search for the Treasure</button>
+                <button onclick="ignoreRumors()">Ignore the Rumors</button>
+            `;
+        }
+
+        // Add more functions for each choice and continue the story...
+
+    </script>
+</body>
+</html>
